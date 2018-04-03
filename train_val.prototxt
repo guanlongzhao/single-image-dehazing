@@ -1,197 +1,238 @@
 name:"PerceptualLossGuidedDehazing"
+layer {
+  name: "input"
+  type: "Input"
+  top: "data"
+  top: "label"
+  phase: TRAIN
+  input_param {
+    shape {
+      dim: 8
+      dim: 3
+      dim: 480
+      dim: 640
+    }
+    shape {
+      dim: 8
+      dim: 3
+      dim: 480
+      dim: 640
+    }
+  }
+}
 
-#input layers
-input: "data"
-input_dim: 1
-input_dim: 3
-input_dim:{height}
-input_dim:{width}
+layer {
+  name: "data_input_0_split"
+  type: "Split"
+  bottom: "data"
+  top: "data_input_0_split_0"
+  top: "data_input_0_split_1"
+  phase: TRAIN
+}
 
-input: "label"
-input_dim: 1
-input_dim: 3
-input_dim:{height}
-input_dim:{width}
-
-
-#Network definition
 layer {
   name: "conv1"
   type: "Convolution"
-  bottom: "data"
+  bottom: "data_input_0_split_0"
   top: "conv1"
-  #learning rate and decay multipliers for the filters, values used in alexnet example model
+  # learning rate multipliers for the filters
   param {
-	lr_mult:1
-	decay_mult:1
+    lr_mult: 0.10000000149
   }
-  #learning rate and decay multipliers for the bias, values used in alexnet example model
+  # learning rate multipliers for the bias
   param {
-	lr_mult:2
-	decay_mult:0
+    lr_mult: 1.0
   }
-  convolution_param {
-    num_output: 3		#filter number
-    kernel_size: 1		#kernel size: 1x1
-	weight_filler {	
-	  type: "gaussian"	#initialize the filters from a Gaussian
-	  std: 0.01 
-	}
-    bias_filler {
-	  type: "constant"  #initialize the bias to 0 (or some small value numbers like 0.1)
-	  value: 0
-	}
-  }
-}
-
-layer {
-   name: "relu1"
-   type: "ReLU"
-   bottom: "conv1"
-   top: "conv1"
- }
-
- layer {
-  name: "conv2"
-  type: "Convolution"
-  bottom: "conv1"
-  top: "conv2"
-  #learning rate and decay multipliers for the filters, values used in alexnet example model
-  param {
-	lr_mult:1
-	decay_mult:1
-  }
-  #learning rate and decay multipliers for the bias, values used in alexnet example model
-  param {
-	lr_mult:2
-	decay_mult:0
-  }
+  
+  phase: TRAIN
   convolution_param {
     num_output: 3
-    kernel_size: 3
-    pad:1
-	weight_filler {	
-	  type: "gaussian"	#initialize the filters from a Gaussian
-	  std: 0.01 
-	}
+    kernel_size: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.0010000000475
+    }
     bias_filler {
-	  type: "constant"  #initialize the bias to 0 (or some small value numbers like 0.1)
-	  value: 0.1
-	}
+      type: "constant"
+      value: 0.0
+    }
   }
 }
 
 layer {
-   name: "relu2"
-   type: "ReLU"
-   bottom: "conv2"
-   top: "conv2"
- }
+  name: "relu1"
+  type: "ReLU"
+  bottom: "conv1"
+  top: "conv1"
+  phase: TRAIN
+}
+
+layer {
+  name: "conv1_relu1_0_split"
+  type: "Split"
+  bottom: "conv1"
+  top: "conv1_relu1_0_split_0"
+  top: "conv1_relu1_0_split_1"
+  top: "conv1_relu1_0_split_2"
+  phase: TRAIN
+}
+
+layer {
+  name: "conv2"
+  type: "Convolution"
+  bottom: "conv1_relu1_0_split_0"
+  top: "conv2"
+  param {
+    lr_mult: 0.10000000149
+  }
+  param {
+    lr_mult: 1.0
+  }
+  phase: TRAIN
+  convolution_param {
+    num_output: 3
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "gaussian"
+      std: 0.0010000000475
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
+    }
+  }
+}
+
+layer {
+  name: "relu2"
+  type: "ReLU"
+  bottom: "conv2"
+  top: "conv2"
+  phase: TRAIN
+}
+
+layer {
+  name: "conv2_relu2_0_split"
+  type: "Split"
+  bottom: "conv2"
+  top: "conv2_relu2_0_split_0"
+  top: "conv2_relu2_0_split_1"
+  top: "conv2_relu2_0_split_2"
+  phase: TRAIN
+}
 
 layer {
   name: "Concat1"
   type: "Concat"
-  bottom: "conv1"
-  bottom: "conv2"
+  bottom: "conv1_relu1_0_split_1"
+  bottom: "conv2_relu2_0_split_0"
   top: "Concat1"
+  phase: TRAIN
   concat_param {
     axis: 1
   }
 }
 
- layer {
+layer {
   name: "conv3"
   type: "Convolution"
   bottom: "Concat1"
   top: "conv3"
-  #learning rate and decay multipliers for the filters, values used in alexnet example model
   param {
-	lr_mult:1
-	decay_mult:1
+    lr_mult: 0.10000000149
   }
-  #learning rate and decay multipliers for the bias, values used in alexnet example model
   param {
-	lr_mult:2
-	decay_mult:0
+    lr_mult: 1.0
   }
+  phase: TRAIN
   convolution_param {
     num_output: 3
+    pad: 2
     kernel_size: 5
-    pad:2
-  	weight_filler {	
-	  type: "gaussian"	#initialize the filters from a Gaussian
-	  std: 0.01 
-	}
+    weight_filler {
+      type: "gaussian"
+      std: 0.0010000000475
+    }
     bias_filler {
-	  type: "constant"  #initialize the bias to 0 (or some small value numbers like 0.1)
-	  value: 0.1
-	}
+      type: "constant"
+      value: 0.0
+    }
   }
 }
 
 layer {
-   name: "relu3"
-   type: "ReLU"
-   bottom: "conv3"
-   top: "conv3"
- }
+  name: "relu3"
+  type: "ReLU"
+  bottom: "conv3"
+  top: "conv3"
+  phase: TRAIN
+}
+
+layer {
+  name: "conv3_relu3_0_split"
+  type: "Split"
+  bottom: "conv3"
+  top: "conv3_relu3_0_split_0"
+  top: "conv3_relu3_0_split_1"
+  phase: TRAIN
+}
 
 layer {
   name: "Concat2"
   type: "Concat"
-  bottom: "conv2"
-  bottom: "conv3"
+  bottom: "conv2_relu2_0_split_1"
+  bottom: "conv3_relu3_0_split_0"
   top: "Concat2"
+  phase: TRAIN
   concat_param {
     axis: 1
   }
 }
 
- layer {
+layer {
   name: "conv4"
   type: "Convolution"
   bottom: "Concat2"
   top: "conv4"
-  #learning rate and decay multipliers for the filters, values used in alexnet example model
   param {
-	lr_mult:1
-	decay_mult:1
+    lr_mult: 0.10000000149
   }
-  #learning rate and decay multipliers for the bias, values used in alexnet example model
   param {
-	lr_mult:2
-	decay_mult:0
+    lr_mult: 1.0
   }
+ phase: TRAIN
   convolution_param {
     num_output: 3
+    pad: 3
     kernel_size: 7
-    pad:3
-  	weight_filler {	
-	  type: "gaussian"	#initialize the filters from a Gaussian
-	  std: 0.01 
-	}
+    weight_filler {
+      type: "gaussian"
+      std: 0.0010000000475
+    }
     bias_filler {
-	  type: "constant"  #initialize the bias to 0 (or some small value numbers like 0.1)
-	  value: 0.1
-	}
+      type: "constant"
+      value: 0.0
+    }
   }
 }
 
 layer {
-   name: "relu4"
-   type: "ReLU"
-   bottom: "conv4"
-   top: "conv4"
- }
-
- layer {
+  name: "relu4"
+  type: "ReLU"
+  bottom: "conv4"
+  top: "conv4"
+  phase: TRAIN
+}
+layer {
   name: "Concat3"
   type: "Concat"
-  bottom: "conv1"
-  bottom: "conv2"
-  bottom: "conv3"
+  bottom: "conv1_relu1_0_split_2"
+  bottom: "conv2_relu2_0_split_2"
+  bottom: "conv3_relu3_0_split_1"
   bottom: "conv4"
   top: "Concat3"
+  phase: TRAIN
   concat_param {
     axis: 1
   }
@@ -202,80 +243,90 @@ layer {
   type: "Convolution"
   bottom: "Concat3"
   top: "conv5"
-  #learning rate and decay multipliers for the filters, values used in alexnet example model
   param {
-	lr_mult:1
-	decay_mult:1
+    lr_mult: 0.10000000149
   }
-  #learning rate and decay multipliers for the bias, values used in alexnet example model
   param {
-	lr_mult:2
-	decay_mult:0
+    lr_mult: 1.0
   }
+  phase: TRAIN
   convolution_param {
     num_output: 3
+    pad: 1
     kernel_size: 3
-    pad:1
-    weight_filler {	
-	  type: "gaussian"	#initialize the filters from a Gaussian
-	  std: 0.01 
-	}
+    weight_filler {
+      type: "gaussian"
+      std: 0.0010000000475
+    }
     bias_filler {
-	  type: "constant"  #initialize the bias to 0 (or some small value numbers like 0.1)
-	  value: 0.1
-	}
+      type: "constant"
+      value: 0.0
+    }
   }
 }
 
 layer {
-   name: "relu5"
-   type: "ReLU"
-   bottom: "conv5"
-   top: "K"
- }
+  name: "relu5"
+  type: "ReLU"
+  bottom: "conv5"
+  top: "K"
+  phase: TRAIN
+}
+
+layer {
+  name: "K_relu5_0_split"
+  type: "Split"
+  bottom: "K"
+  top: "K_relu5_0_split_0"
+  top: "K_relu5_0_split_1"
+  phase: TRAIN
+}
 
 layer {
   name: "prod"
   type: "Eltwise"
-  bottom: "data"
-  bottom: "K"
+  bottom: "data_input_0_split_1"
+  bottom: "K_relu5_0_split_0"
   top: "prod"
+  phase: TRAIN
   eltwise_param {
     operation: PROD
   }
 }
 
 layer {
- name:"eltwise_layer"
- type:"Eltwise"
- bottom:"prod"
- bottom:"K"
- top:"eltwise_layer"
- eltwise_param{
-   operation:SUM
-   coeff:1
-   coeff:-1
- }
-}
-
-
-layer {
-  name: "sum"
-  bottom: "eltwise_layer"
-  top: "sum"
-  type: "Power"
-  power_param {
-    power: 1
-    scale: 1
-    shift: 1
+  name: "eltwise_layer"
+  type: "Eltwise"
+  bottom: "prod"
+  bottom: "K_relu5_0_split_1"
+  top: "eltwise_layer"
+  phase: TRAIN
+  eltwise_param {
+    operation: SUM
+    coeff: 1.0
+    coeff: -1.0
   }
 }
 
 layer {
-   name: "clip"
-   type: "ReLU"
-   bottom: "sum"
-   top: "sum"
+  name: "sum"
+  type: "Power"
+  bottom: "eltwise_layer"
+  top: "sum"
+  phase: TRAIN
+  power_param {
+    power: 1.0
+    scale: 1.0
+    shift: 1.0
+  }
+}
+
+layer {
+  name: "clip"
+  type: "ReLU"
+  bottom: "sum"
+  top: "sum"
+  phase: TRAIN
 }
 
 layer {
@@ -284,6 +335,7 @@ layer {
   bottom: "sum"
   bottom: "label"
   top: "loss"
+  loss_weight: 1.0
+  phase: TRAIN
 }
-
 
