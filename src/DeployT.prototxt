@@ -2,14 +2,14 @@ name:"PerceptualLossGuidedDehazing"
 input: "data"
 input_dim: 1
 input_dim: 3
-input_dim:460
-input_dim:620
+input_dim:413
+input_dim:550
 
 input: "label"
 input_dim: 1
 input_dim: 3
-input_dim:460
-input_dim:620
+input_dim:413
+input_dim:550
 
 
 layer {
