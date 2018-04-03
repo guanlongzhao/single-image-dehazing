@@ -1,26 +1,90 @@
 name:"PerceptualLossGuidedDehazing"
+# Define data input, modified from imagenet
+# Haze data for training
 layer {
-  name: "input"
-  type: "Input"
+  name: "data"
+  type: "Data"
   top: "data"
-  top: "label"
-  phase: TRAIN
-  input_param {
-    shape {
-      dim: 8
-      dim: 3
-      dim: 480
-      dim: 640
-    }
-    shape {
-      dim: 8
-      dim: 3
-      dim: 480
-      dim: 640
-    }
+  top: "ignorelabel1"
+  include {
+    phase: TRAIN
+  }
+  transform_param {
+    scale: 0.00390625 # scale to 0-1
+  }
+  data_param {
+    source: "/home/guanlong/Desktop/single-image-dehazing/toy_data/train/reside_train_haze_lmdb"
+    batch_size: 8
+    backend: LMDB
   }
 }
 
+# Clean data for training
+layer {
+  name: "clean"
+  type: "Data"
+  top: "clean"
+  top: "ignorelabel2"
+  include {
+    phase: TRAIN
+  }
+  transform_param {
+    scale: 0.00390625 # scale to 0-1
+  }
+  data_param {
+    source: "/home/guanlong/Desktop/single-image-dehazing/toy_data/train/reside_train_clean_lmdb"
+    batch_size: 8
+    backend: LMDB
+  }
+}
+
+# Haze data for val
+layer {
+  name: "data"
+  type: "Data"
+  top: "data"
+  top: "ignorelabel1"
+  include {
+    phase: TEST
+  }
+  transform_param {
+    scale: 0.00390625 # scale to 0-1
+  }
+  data_param {
+    source: "/home/guanlong/Desktop/single-image-dehazing/toy_data/val/reside_val_haze_lmdb"
+    batch_size: 8
+    backend: LMDB
+  }
+}
+
+# Clean data for val
+layer {
+  name: "clean"
+  type: "Data"
+  top: "clean"
+  top: "ignorelabel2"
+  include {
+    phase: TEST
+  }
+  transform_param {
+    scale: 0.00390625 # scale to 0-1
+  }
+  data_param {
+    source: "/home/guanlong/Desktop/single-image-dehazing/toy_data/val/reside_val_clean_lmdb"
+    batch_size: 8
+    backend: LMDB
+  }
+}
+
+# Ignore labels
+layer {
+  name: "silence"
+  type: "Silence"
+  bottom: "ignorelabel1"
+  bottom: "ignorelabel2"
+}
+
+# Network def
 layer {
   name: "data_input_0_split"
   type: "Split"
@@ -333,7 +397,7 @@ layer {
   name: "loss"
   type: "EuclideanLoss"
   bottom: "sum"
-  bottom: "label"
+  bottom: "clean"
   top: "loss"
   loss_weight: 1.0
   phase: TRAIN
