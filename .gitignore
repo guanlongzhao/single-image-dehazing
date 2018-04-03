@@ -102,3 +102,7 @@ ENV/
 
 # ignore DB files
 *.mdb
+
+# ignore images
+*.png
+*.jpg
