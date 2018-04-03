@@ -40,15 +40,15 @@ def run_test(input_path, output_path, model_path):
     info = os.listdir(input_path)
     imagesnum=0
     for line in info:
-        reg = re.compile(r'(.*?).jpg')
-        all = reg.findall(line)
-        if (all != []):
-            imagename = str(all[0])
-            if (os.path.isfile(r'%s/%s.jpg' % (input_path, imagename)) == False):
+        # reg = re.compile(r'(.*?).jpg')
+        # all = reg.findall(line)
+        if (line.endswith('png') or line.endswith('jpg')):
+            imagename = line[0:-4]
+            if (os.path.isfile(r'%s/%s' % (input_path, line)) == False):
                 continue
             else:
                 imagesnum = imagesnum + 1
-                npstore = caffe.io.load_image('%s/%s.jpg' % (input_path, imagename))
+                npstore = caffe.io.load_image('%s/%s' % (input_path, line))
                 height = npstore.shape[0]
                 width = npstore.shape[1]
 
@@ -70,7 +70,7 @@ def run_test(input_path, output_path, model_path):
                 data = data.transpose((1, 2, 0))
                 data = data[:, :, ::-1]
 
-                savepath = output_path + '/' + imagename + '_dehaze.jpg'
+                savepath = output_path + '/' + imagename + '.jpg'
                 cv2.imwrite(savepath, data * 255.0,[cv2.IMWRITE_JPEG_QUALITY, 100])
 
                 print imagename
