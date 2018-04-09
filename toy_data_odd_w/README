@@ -1,0 +1,2 @@
+SSIM/MSSIM requires odd width and square imgs to run
+Also we have to turn off CUDNN
