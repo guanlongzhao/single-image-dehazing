@@ -11,7 +11,7 @@ total_ssim = 0;
 measure_array = struct([]);
 idx = 1;  %idx for measure array 
 
-for i = 1: 5 %num_dehazed_image    
+for i = 1: num_dehazed_image    
     if(listing(i).isdir == 0)
         dehazed_image = listing(i).name;
         image_idx = strtok(dehazed_image,'_');
@@ -30,12 +30,13 @@ for i = 1: 5 %num_dehazed_image
         end
         
         % compute the SSIM
+        image_psnr = image_psnr/3;
         image_ssim = ssim(dehazed_iamge, groundtruth_image);
         
         field1 = 'name';
         value1 = listing(i).name;
         field2 = 'PSNR';
-        value2 = image_psnr/3;
+        value2 = image_psnr;
         field3 = 'SSIM';
         value3 = image_ssim;
         st = struct(field1,value1,field2,value2,field3,value3);
@@ -46,7 +47,7 @@ for i = 1: 5 %num_dehazed_image
         end
         idx = idx +1;       
         
-        total_psnr = total_psnr + image_psnr/3;
+        total_psnr = total_psnr + image_psnr;
         total_ssim = total_ssim + image_ssim;
     end
 end
