@@ -1,16 +1,17 @@
 clc;
 clear;
 path_groundtruth_image = 'C:/YL_course/CSCE 633/project/code/results/groundtruth';
-path_dehazed_image = 'C:/YL_course/CSCE 633/project/code/results/dehaze_output';
+path_dehazed_image = 'C:/YL_course/CSCE 633/project/code/results/dehaze_aodnet';
 
 % get the file name of two images to be compared
 listing = dir(path_dehazed_image);  %list all dehazing output
 num_dehazed_image = length(listing) -2; % exclue . and .. returned by dir command
 total_psnr = 0;
 total_ssim = 0;
+measure_array = struct([]);
+idx = 1;  %idx for measure array 
 
-for i = 1: num_dehazed_image
-    disp(i);
+for i = 1: 5 %num_dehazed_image    
     if(listing(i).isdir == 0)
         dehazed_image = listing(i).name;
         image_idx = strtok(dehazed_image,'_');
@@ -31,11 +32,26 @@ for i = 1: num_dehazed_image
         % compute the SSIM
         image_ssim = ssim(dehazed_iamge, groundtruth_image);
         
+        field1 = 'name';
+        value1 = listing(i).name;
+        field2 = 'PSNR';
+        value2 = image_psnr/3;
+        field3 = 'SSIM';
+        value3 = image_ssim;
+        st = struct(field1,value1,field2,value2,field3,value3);
+        if(idx == 1)    
+            measure_array = st;
+        else    
+            measure_array(idx) = st;
+        end
+        idx = idx +1;       
+        
         total_psnr = total_psnr + image_psnr/3;
         total_ssim = total_ssim + image_ssim;
     end
 end
 
+save('result_per_image.mat','measure_array');
 avg_psnr_dataset = total_psnr/num_dehazed_image
 avg_ssim_dataset = total_ssim/num_dehazed_image
 
