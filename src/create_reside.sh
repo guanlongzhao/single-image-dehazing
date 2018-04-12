@@ -16,8 +16,8 @@ rm -r $OUTPUT/val/reside_val_haze_lmdb
 # already been resized using another tool.
 RESIZE=true
 if $RESIZE; then
-  RESIZE_HEIGHT=480
-  RESIZE_WIDTH=640
+  RESIZE_HEIGHT=641
+  RESIZE_WIDTH=641
 else
   RESIZE_HEIGHT=0
   RESIZE_WIDTH=0

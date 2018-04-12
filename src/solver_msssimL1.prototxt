@@ -15,7 +15,7 @@ momentum: 0.9
 weight_decay: 0.0001		#typical settings: 0.0001, 0.0002, 0.0005
 clip_gradients: 0.1			#set clip_gradients to >= 0 to clip parameter gradients to that L2 norm, whenever their actual L2 norm is larger.
 snapshot: 100
-snapshot_prefix: "/home/guanlong/Desktop/single-image-dehazing/toy_data_odd_w" #user defined #snapshot weight and its own states, can resume training from a given point
+snapshot_prefix: "/home/guanlong/Desktop/single-image-dehazing/toy_data_odd_w/solver_msssimL1" #user defined #snapshot weight and its own states, can resume training from a given point
 solver_mode: GPU
 type:	"Adam"			#available type: SGD, AdaDelta, AdaGrad, Adam, Netserov, RMSProp
 						#by default, the solver type is SGD (if not specified). I think we can try SGD then Adam then ..
