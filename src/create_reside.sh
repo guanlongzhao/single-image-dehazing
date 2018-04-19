@@ -2,15 +2,15 @@
 # Create the reside lmdb inputs
 set -e
 
-OUTPUT=../toy_data
-DATA=../toy_data
+OUTPUT=../data10k
+DATA=../data10k
 TOOLS=../../caffe/build/tools
 
 # Remove previous run
-rm -r $OUTPUT/train/reside_train_clean_lmdb
-rm -r $OUTPUT/train/reside_train_haze_lmdb
-rm -r $OUTPUT/val/reside_val_clean_lmdb
-rm -r $OUTPUT/val/reside_val_haze_lmdb
+# rm -r $OUTPUT/train/reside_train_clean_lmdb
+# rm -r $OUTPUT/train/reside_train_haze_lmdb
+# rm -r $OUTPUT/val/reside_val_clean_lmdb
+# rm -r $OUTPUT/val/reside_val_haze_lmdb
 
 # Set RESIZE=true to resize the images. Leave as false if images have
 # already been resized using another tool.

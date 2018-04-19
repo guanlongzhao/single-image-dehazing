@@ -77,7 +77,7 @@ for haze_file in its_haze_list:
     if isInTrainSet: # some one did a stupid data split
         clean_file = '%s%s' % (its_train_clean, clean_name)
     else:
-        clean_file = '%s%s' % (its_train_clean, clean_name)
+        clean_file = '%s%s' % (its_val_clean, clean_name)
     its_clean_list.append(clean_file)
 
 ots_haze_list = glob(ots_haze + '*.jpg')
