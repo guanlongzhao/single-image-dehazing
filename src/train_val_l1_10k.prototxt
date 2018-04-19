@@ -13,7 +13,7 @@ layer {
     scale: 0.00390625 # scale to 0-1
   }
   data_param {
-    source: "/home/guanlong/Desktop/single-image-dehazing/data1k/train/reside_train_haze_lmdb"
+    source: "/home/guanlong/Desktop/single-image-dehazing/data10k/train/reside_train_haze_lmdb"
     batch_size: 8
     backend: LMDB
   }
@@ -32,7 +32,7 @@ layer {
     scale: 0.00390625 # scale to 0-1
   }
   data_param {
-    source: "/home/guanlong/Desktop/single-image-dehazing/data1k/train/reside_train_clean_lmdb"
+    source: "/home/guanlong/Desktop/single-image-dehazing/data10k/train/reside_train_clean_lmdb"
     batch_size: 8
     backend: LMDB
   }
@@ -51,7 +51,7 @@ layer {
     scale: 0.00390625 # scale to 0-1
   }
   data_param {
-    source: "/home/guanlong/Desktop/single-image-dehazing/data1k/val/reside_val_haze_lmdb"
+    source: "/home/guanlong/Desktop/single-image-dehazing/data10k/val/reside_val_haze_lmdb"
     batch_size: 8
     backend: LMDB
   }
@@ -70,7 +70,7 @@ layer {
     scale: 0.00390625 # scale to 0-1
   }
   data_param {
-    source: "/home/guanlong/Desktop/single-image-dehazing/data1k/val/reside_val_clean_lmdb"
+    source: "/home/guanlong/Desktop/single-image-dehazing/data10k/val/reside_val_clean_lmdb"
     batch_size: 8
     backend: LMDB
   }

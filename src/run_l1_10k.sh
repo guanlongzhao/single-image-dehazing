@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 set -e
 
-post_fix=l1_1k
+post_fix=l1_10k
 
 caffe train --solver=./solver_$post_fix.prototxt 2>&1 | tee ../log/train_$post_fix.log
 

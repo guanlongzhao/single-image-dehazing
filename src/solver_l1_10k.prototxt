@@ -10,7 +10,7 @@ lr_policy: "step"		#typical settings
 gamma: 0.1			#multiply learning rate by a factor of gamma: dropping learning rate gradually
 stepsize: 100000		#drop the learning rate in ever n iterations, usually set in hundreds K
 display: 10			#how often caffe should output results to the screen	
-max_iter: 1800
+max_iter: 18000
 momentum: 0.9
 weight_decay: 0.0001		#typical settings: 0.0001, 0.0002, 0.0005
 clip_gradients: 0.1			#set clip_gradients to >= 0 to clip parameter gradients to that L2 norm, whenever their actual L2 norm is larger.
