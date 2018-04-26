@@ -1,0 +1,4 @@
+1K: MSSSIM_L1, L2, L1, SSIM, MSSSIM, MSSSIM_L2
+10K: SSIM, L1, MSSSIM_L2, MSSSIM_L1, MSSSIM, L2
+
+Observations from the learning curve is the the learning rate was too high and the mini batch size is too small
