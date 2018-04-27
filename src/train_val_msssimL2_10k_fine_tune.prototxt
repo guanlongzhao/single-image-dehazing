@@ -14,7 +14,7 @@ layer {
   }
   data_param {
     source: "/home/guanlong/Desktop/single-image-dehazing/data10k/train/reside_train_haze_lmdb"
-    batch_size: 32
+    batch_size: 16
     backend: LMDB
   }
 }
@@ -33,7 +33,7 @@ layer {
   }
   data_param {
     source: "/home/guanlong/Desktop/single-image-dehazing/data10k/train/reside_train_clean_lmdb"
-    batch_size: 32
+    batch_size: 16
     backend: LMDB
   }
 }
@@ -52,7 +52,7 @@ layer {
   }
   data_param {
     source: "/home/guanlong/Desktop/single-image-dehazing/data10k/val/reside_val_haze_lmdb"
-    batch_size: 32
+    batch_size: 16
     backend: LMDB
   }
 }
@@ -71,7 +71,7 @@ layer {
   }
   data_param {
     source: "/home/guanlong/Desktop/single-image-dehazing/data10k/val/reside_val_clean_lmdb"
-    batch_size: 32
+    batch_size: 16
     backend: LMDB
   }
 }
@@ -404,7 +404,7 @@ layer {
   python_param {
     module: 'pyloss'  # python module name where your implementation is
     layer: 'MSSSIML2'   # the name of the class implementation
-    param_str: '{"C1": 0.01, "C2": 0.03, "sigma": (0.5, 1., 2., 4., 8.), "alpha": 0.1}'
+    param_str: '{"C1": 0.01, "C2": 0.03, "sigma": (0.5, 1., 2., 4., 8.), "alpha": 0.1}' # alpha is for MSSSIM, 0.1, 0.5, 0.84, 0.9
   }
 }
 
