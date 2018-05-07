@@ -16,9 +16,9 @@ In this project, we investigate the possibility of replacing the L2 loss with pe
 
 ## Test
 - Open file `run.sh`
-- Change `sots_dir` to where you put the RESIDE SOTS set. You can obtain this testing set [here](https://sites.google.com/view/reside-dehaze-datasets). We used the 1,000-image version of SOTS that contains 500 indoor and 500 outdoor images, and we assume that they are all put into `sots_dir`
-- Change `gt_dir` to where you put the groundtruth images. Again, we assume that you have put all the groundtruth images in the same folder
-- Change `dehaze_dir` to the desired output directory
+- Change `sots_dir` to where you put the RESIDE SOTS set. Please use absolute path. You can obtain this testing set [here](https://sites.google.com/view/reside-dehaze-datasets). We used the 1,000-image version of SOTS that contains 500 indoor and 500 outdoor images, and we assume that they are all put into `sots_dir`.
+- Change `gt_dir` to where you put the groundtruth images. Please use absolute path. Again, we assume that you have put all the groundtruth images in the same folder
+- Change `dehaze_dir` to the desired output directory. Please use absolute path.
 - Run `./run.sh`
 - The script may run for a while (<30 min) and may open your Matlab
 - When it finishes, you can find the dehazed images in `dehaze_dir` and the average PSNR and SSIM printed on the screen. You can also find the PSNR and SSIM for each test sample in a `.mat` file named as `result_per_image_test.mat` under your current directory

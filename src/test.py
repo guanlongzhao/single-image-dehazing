@@ -95,11 +95,13 @@ if __name__ == '__main__':
         model_path = myargs['-m']
         if not os.path.isfile(model_path):
             isRun = False
+            print 'Please check model path, use absolute path'
 
     if '-i' in myargs:
         input_path = myargs['-i']
         if not os.path.exists(input_path):
             isRun = False
+            print 'Please check input path, use absolute path'
     
     if '-o' in myargs:
         output_path = myargs['-o']
