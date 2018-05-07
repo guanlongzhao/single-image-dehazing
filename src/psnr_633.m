@@ -1,4 +1,4 @@
-function n = psnr(x, y)
+function n = psnr_633(x, y)
 %PSNR   Compute the peak signal to noise ratio between two images
 %   PSNR(X, Y) computes the peak signal to noise ratio in decibels (dB)
 %   between images X and Y.

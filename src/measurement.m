@@ -1,6 +1,6 @@
 clc;
 clear;
-postfix = 'msssimL2_10k_fine_tune_0.7';
+postfix = 'msssimL2_10k_fine_tune';
 path_groundtruth_image = '../test/groundtruth';
 path_dehazed_image = sprintf('../test/dehaze_%s', postfix);
 
@@ -29,13 +29,13 @@ parfor i = 1:num_dehazed_image
     for channel = 1:3
         x = groundtruth_image(:,:,channel);
         y = dehazed_iamge(:,:,channel);
-        channel_psnr = psnr(x,y);
+        channel_psnr = psnr_633(x,y); % the matlab default one is different from this one
         image_psnr = image_psnr + channel_psnr;
     end
 
     % compute the SSIM
     image_psnr = image_psnr/3;
-    image_ssim = ssim(dehazed_iamge, groundtruth_image);
+    image_ssim = ssim_633(dehazed_iamge, groundtruth_image);
 
     field1 = 'name';
     value1 = listing(i).name;

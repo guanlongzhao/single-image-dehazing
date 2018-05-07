@@ -1,4 +1,4 @@
-function [ssimval, ssimmap] = ssim(varargin)
+function [ssimval, ssimmap] = ssim_633(varargin)
 %SSIM Structural Similarity Index for measuring image quality
 %   SSIMVAL = SSIM(A, REF) calculates the Structural Similarity Index
 %   (SSIM) value for image A, with the image REF as the reference. A and

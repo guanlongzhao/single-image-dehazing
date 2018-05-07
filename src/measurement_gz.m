@@ -25,12 +25,12 @@ parfor i = 1: num_dehazed_image
         for channel = 1:3
             x = groundtruth_image(:,:,channel);
             y = dehazed_iamge(:,:,channel);
-            channel_psnr = psnr(x,y);
+            channel_psnr = psnr_633(x,y);
             image_psnr = image_psnr + channel_psnr;
         end
         
         % compute the SSIM
-        image_ssim = ssim(dehazed_iamge, groundtruth_image);
+        image_ssim = ssim_633(dehazed_iamge, groundtruth_image);
         
         total_psnr = total_psnr + image_psnr/3;
         total_ssim = total_ssim + image_ssim;
