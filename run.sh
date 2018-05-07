@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-# Using pretrained weights
+# Sample testing code using a pre-trained model
 set -e
 
 # CHANGE THIS

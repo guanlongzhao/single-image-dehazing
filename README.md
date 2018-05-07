@@ -8,6 +8,7 @@ In this project, we investigate the possibility of replacing the L2 loss with pe
 - PyCaffe has to be installed and included in your python search path. For example, run `export PYTHONPATH=$PATH_TO_CAFFE/python:$PYTHONPATH`, where `$PATH_TO_CAFFE` is the caffe root dir
 - PyCaffe may need a lot of other dependencies, you can install anaconda to resolve most of them
 - Matlab 2017a and up; older versions should work but not tested; if you don't have the parallel computing toolbox, just change all the `parfor` in `evaluate.m` to `for`
+- Include `./src/psnr_633.m` and `./src/ssim_633.m` in your Matlab's search path
 
 ## Install
 - Copy `loss.py` to `$PATH_TO_CAFFE/python/`
@@ -23,12 +24,12 @@ In this project, we investigate the possibility of replacing the L2 loss with pe
 - When it finishes, you can find the dehazed images in `dehaze_dir` and the average PSNR and SSIM printed on the screen. You can also find the PSNR and SSIM for each test sample in a `.mat` file named as `result_per_image_test.mat` under your current directory
 
 ## Pre-trained models
-- test/solver_msssimL2_10k_fine_tune_iter_9000.caffemodel
-    - **PSNR: 23.43**
-    - **SSIM: 0.8747**
-- test/solver_msssimL2_10k_fine_tune_0.7_iter_9000.caffemodel
-    - **PSNR: 23.50**
-    - **SSIM: 0.8676**
+- data10k/solver_msssimL2_10k_fine_tune_iter_9000.caffemodel
+    - PSNR: **23.43**
+    - SSIM: **0.8747**
+- data10k/solver_msssimL2_10k_fine_tune_0.7_iter_9000.caffemodel
+    - PSNR: **23.50**
+    - SSIM: **0.8676**
 
 ## Contact
 - Guanlong Zhao (gzhao@tamu.edu), Department of Computer Science and Engineering, Texas A&M University
