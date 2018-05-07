@@ -1,6 +1,6 @@
 clc;
 clear;
-postfix = 'l2_10k';
+postfix = 'msssimL2_10k_fine_tune_0.7';
 path_groundtruth_image = '../test/groundtruth';
 path_dehazed_image = sprintf('../test/dehaze_%s', postfix);
 

@@ -1,7 +1,7 @@
 %% Compute PSNR and SSIM for indoor and outdoor separately
 clc;
 clear;
-postfix = 'msssimL2_1k';
+postfix = 'msssimL2_10k_fine_tune_0.7';
 load(sprintf('../test/result_per_image_%s.mat', postfix),'measure_array');
 
 %% Figure out indices
