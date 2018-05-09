@@ -1,6 +1,6 @@
 # PAD-Net: A Perception-Aided Single Image Dehazing Network
 ## Introduction
-In this project, we investigate the possibility of replacing the L2 loss with perceptually derived loss functions (SSIM, MS-SSIM, etc.) in training an end-to-end dehazing neural network. Objective experimental results suggest that by merely changing the loss function we can obtain significantly higher PSNR and SSIM scores on the SOTS set in the RESIDE dataset, compared with a state-of-the-art end-to-end dehazing neural network (AOD-Net) that uses the L2 loss. The best PSNR we obtained was 23.50 (4.2% relative improvement), and the best SSIM we obtained was 0.8747 (2.3% relative improvement.)
+In this project, we investigate the possibility of replacing the L2 loss with perceptually derived loss functions (SSIM, MS-SSIM, etc.) in training an end-to-end dehazing neural network. Objective experimental results suggest that by merely changing the loss function we can obtain significantly higher PSNR and SSIM scores on the SOTS set in the RESIDE dataset, compared with a state-of-the-art end-to-end dehazing neural network (AOD-Net) that uses the L2 loss. The best PSNR we obtained was 23.50 (4.2% relative improvement), and the best SSIM we obtained was 0.8747 (2.3% relative improvement.) For more details, please read this [report](https://arxiv.org/pdf/1805.03146.pdf).
 
 ## System requirements
 - Ubuntu 16.04 64 bit; other OSs were not tested
